@@ -1,19 +1,22 @@
-let showMobile = async (phone) => {
-    let res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phone}`);
+//main funtion to fetch 
+let showMobile = async (phone) => { // here phone is a parameter using for dynamic api url 
+    let res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${phone}`); // here the use the dynamic api 
     let data = await res.json();
-    let phones = data.data
+
+    let phones = data.data // get data
     // console.log(phones);
-    displayMobile(phones)
+    displayMobile(phones) // show function
 }
 let displayMobile = (phones) => {
     // console.log(phones);
-    let mobileContainer = document.getElementById('mobile-container');
-    mobileContainer.innerText = '';
+
+    let mobileContainer = document.getElementById('mobile-container'); // get mobile container 
+    mobileContainer.innerText = ''; // clear the previous search mobile 
 
     phones.forEach(phone => {
-        let div = document.createElement('div');
-        div.classList = 'card bg-base-100 w-96 shadow-xl';
-        div.innerHTML = `
+        let div = document.createElement('div'); // craete the mobile card 
+        div.classList = 'card bg-base-100 w-96 shadow-xl'; // set the tailwind class using classlist 
+        div.innerHTML = `  
         <figure class="px-10 pt-10">
         <img src="${phone.image}" />
         </figure>
@@ -25,16 +28,14 @@ let displayMobile = (phones) => {
                         <button class="btn btn-primary">Show Details</button>
                     </div>
                 </div>
-        `;
-        mobileContainer.appendChild(div)
+        `; // dynamic card create 
+        mobileContainer.appendChild(div) // create div append in to the mobile container 
 
     })
 }
 let search = () => {
-    // let searchBtn = document.getElementById('search-btn')
-    let inputField = document.getElementById('input-field');
-    let inputText = inputField.value;
-    console.log(inputText);
-    // inputField.value = '';
+    let inputField = document.getElementById('input-field'); // here make button clicked 
+    let inputText = inputField.value; // get the input field values 
+    inputField.value = ''; // clear the input field after search 
     showMobile(inputText)
 }
